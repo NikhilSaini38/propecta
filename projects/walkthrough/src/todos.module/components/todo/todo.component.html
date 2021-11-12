@@ -1,0 +1,14 @@
+<div [class]="done ? 'complete' : ''">
+  <input
+    #editField
+    *ngIf="editing"
+    [(ngModel)]="newContent"
+    (keypress)="onKeyPress($event)"
+    (blur)="toggleEdit()"
+  />
+  <span (click)="toggleDone()" *ngIf="!editing">{{ content }}</span>
+  <span>
+    <button (click)="toggleEdit()">{{ editing ? "💾" : "✏️" }}</button>
+    <button (click)="deleteTodo.emit()">🗑️</button>
+  </span>
+</div>

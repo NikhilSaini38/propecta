@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  font-family: "roboto";
+  h1 {
+    font-size: 4rem;
+  }
+  input {
+    padding: 1rem;
+    margin: 0.5rem;
+    font-size: 2rem;
+    border-radius: 1rem;
+  }
+}

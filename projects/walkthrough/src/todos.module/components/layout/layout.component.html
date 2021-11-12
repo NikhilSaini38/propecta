@@ -1,0 +1,17 @@
+<h1>Todos</h1>
+<input
+  #addTodoField
+  autofocus
+  data-intro="Hello World! 👋"
+  class="new-todo-field"
+  placeholder="Add todo here...(press enter to add to list)"
+  [(ngModel)]="newTodo"
+  (keypress)="onKeyPress($event)"
+/>
+<todo
+  #todoComp
+  *ngFor="let todo of todosList; index as i"
+  [content]="todo"
+  (deleteTodo)="deleteTodo(i)"
+  (updateTodo)="updateTodo(i, $event)"
+></todo>
