@@ -6,9 +6,13 @@
     (keypress)="onKeyPress($event)"
     (blur)="toggleEdit()"
   />
-  <span (click)="toggleDone()" *ngIf="!editing">{{ content }}</span>
+  <span #contentElement (click)="toggleDone()" *ngIf="!editing">{{
+    content
+  }}</span>
   <span>
-    <button (click)="toggleEdit()">{{ editing ? "💾" : "✏️" }}</button>
-    <button (click)="deleteTodo.emit()">🗑️</button>
+    <button #editButton (click)="toggleEdit()">
+      {{ editing ? "💾" : "✏️" }}
+    </button>
+    <button #deleteButton (click)="deleteTodo.emit()">🗑️</button>
   </span>
 </div>

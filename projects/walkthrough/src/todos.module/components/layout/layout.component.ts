@@ -1,21 +1,19 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { OnInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Step } from 'intro.js';
+import { WalkthroughService } from '../../walkthrough.service';
 
 @Component({
   selector: 'todos-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent implements AfterViewInit {
-  @ViewChild('addTodoField') addTodoInput: ElementRef;
-  @ViewChild('todoComp') todoElement: ElementRef;
+export class LayoutComponent implements OnInit {
+  constructor(private walkthroughSvc: WalkthroughService) {}
 
-  newTodo: string = '';
+  @ViewChild('addTodoField') addTodoInput: ElementRef<HTMLInputElement>;
+
+  newTodo: string;
+  todoWalkthroughSteps: Step[];
 
   todosList: string[] = ['Walk the plants'];
 
@@ -34,22 +32,22 @@ export class LayoutComponent implements AfterViewInit {
     this.todosList[index] = newValue;
   }
 
-  ngAfterViewInit() {
-    require('intro.js')()
-      .addSteps([
+  ngOnInit() {
+    setTimeout(() => {
+      this.walkthroughSvc.enable();
+      this.walkthroughSvc.controller.addSteps([
         {
-          title: 'Welcome to simple todo App',
+          title: 'Welcome',
           intro:
-            'This is where you can add todos. Just enter the text for your todo and press enter.',
+            "This is a simple todo app. Let's Walk through the features here.",
+        },
+        {
+          title: 'Add new todo',
+          intro:
+            'Here you can add new todo item. Press enter to submit after typing in.',
           element: this.addTodoInput.nativeElement,
         },
-        {
-          title: 'Todo Item',
-          intro:
-            'Here you can see the todo added.<br/>Click the text in todo item to mark it as done.<br/>To edit, press ✏️ button, press enter when done.<br/>To delete it press 🗑️ button to delete the item',
-          element: this.todoElement.nativeElement,
-        },
-      ])
-      .start();
+      ]);
+    });
   }
 }
